@@ -5,37 +5,39 @@ provider "aws" {
   profile                 = ""
 }
 
-resource "aws_vpc" "terra-vpc" {
-  cidr_block       = var.cidr_blocks[0].cidr_block
+resource "aws_vpc" "myapp-vpc" {
+  cidr_block       = var.vpc_cidr_block
   instance_tenancy = "default"
 
   tags = {
-    Name = var.vpc_name
+    Name = "${var.env_prefix}-vpc"
   }
 }
 
-resource "aws_subnet" "terra-sub-1" {
-  vpc_id     = aws_vpc.terra-vpc.id
-  cidr_block = var.cidr_blocks[1].cidr_block
-	availability_zone = var.avail_zone_1
+resource "aws_subnet" "myapp-sub-1" {
+  vpc_id     = aws_vpc.myapp-vpc.id
+  cidr_block = var.subnet_cidr_block
+  availability_zone = var.avail_zone
 	tags = {
-    Name = var.cidr_blocks[1].name
+    Name = "${var.env_prefix}-subnet-1"
   }
 }
 
-resource "aws_subnet" "terra-sub-2" {
-  vpc_id     = aws_vpc.terra-vpc.id
-  cidr_block = var.cidr_blocks[2].cidr_block
-	availability_zone = var.avail_zone_2
+resource "aws_internet_gateway" "myapp-igw-1" {
+  vpc_id     = aws_vpc.myapp-vpc.id
 	tags = {
-    Name = var.cidr_blocks[2].name
+    Name = "${var.env_prefix}-igw-1"
+  } 
+}
+
+resource "aws_default_route_table" "example" {
+  default_route_table_id = aws_vpc.myapp-vpc.default_route_table_id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.myapp-igw-1.id
   }
+	tags = {
+    Name = "${var.env_prefix}-main-rtb"
+  } 
 }
-
-output "terra-vpc-id" {
-	value = aws_vpc.terra-vpc.id
-}
-
-output "terra-vpc-sub-id-1" {
-	value = aws_subnet.terra-sub-1.id
-}    

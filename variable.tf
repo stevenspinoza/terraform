@@ -1,6 +1,19 @@
+variable vpc_cidr_block {
+    default = "10.0.0.0/16"
+}
+variable subnet_cidr_block {
+    default = "10.0.10.0/24"
+}
+variable avail_zone {
+    default = "us-east-1a"
+}
+variable env_prefix {
+    default = "dev"
+}
+
 variable "vpc_name" {
     description = "VPC name"
-    default = "terra-vpc"
+    default = "myapp-vpc"
     type = string
 }
 
@@ -8,24 +21,4 @@ variable "vpc_region" {
     description = "VPC region"
     default = "us-east-1"
     type = string
-}
-
-variable "avail_zone_1" {
-    description = "Availability_zone 1"
-    default = "us-east-1a"
-    type = string
-}
-
-variable "avail_zone_2" {
-    description = "Availability_zone 2"
-    default = "us-east-1b"
-    type = string
-}
-
-variable "cidr_blocks" {
-    description = "VPC CIDR blocks"
-    type = list(object({
-        cidr_block = string
-        name = string
-    }))	
 }
