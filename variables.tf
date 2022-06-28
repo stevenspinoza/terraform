@@ -1,0 +1,10 @@
+variable vpc_cidr_block {}
+variable subnet_cidr_block {}
+variable avail_zone {}
+variable env_prefix {}
+variable vpc_name {}
+variable vpc_region {}
+variable my_ip {}
+variable image {}
+variable ssh_pub_key_loc {}
+variable instance_type {}
