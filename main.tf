@@ -1,3 +1,13 @@
+# terraform {
+#     required_version = ">= 0.12"
+#     backend "s3" {
+#       bucket = "myapp-terra-bucket"
+#       key = "myapp/state.tfstate"
+#       region = "us-east-1"
+#     }
+    
+# }
+
 provider "aws" {
   # Configuration options
   region = var.vpc_region
