@@ -22,3 +22,13 @@ variable "vpc_region" {
     default = "us-east-1"
     type = string
 }
+
+variable my_ip {
+    default = ""
+}
+
+variable instance_type {
+    default = "t2.micro"
+}
+
+variable ssh_pub_key_loc {}
