@@ -97,16 +97,18 @@ resource "aws_key_pair" "myapp-ssh-key" {
 	# public_key = file(var.ssh_pub_key_loc)
 }
 
-resource "aws_instance" "myapp-server" {
-  ami           = data.aws_ami.latest-aws-linux-img.id
-  instance_type = var.instance_type
-	subnet_id = aws_subnet.myapp-sub-1.id
-	vpc_security_group_ids = [aws_default_security_group.default-sg.id]
-	availability_zone = var.avail_zone
-	associate_public_ip_address = true
-	key_name = aws_key_pair.myapp-ssh-key.key_name
+# resource "aws_instance" "myapp-server" {
+#   ami           = data.aws_ami.latest-aws-linux-img.id
+#   instance_type = var.instance_type
+# 	subnet_id = aws_subnet.myapp-sub-1.id
+# 	vpc_security_group_ids = [aws_default_security_group.default-sg.id]
+# 	availability_zone = var.avail_zone
+# 	associate_public_ip_address = true
+# 	key_name = aws_key_pair.myapp-ssh-key.key_name
 
-  tags = {
-    Name = "${var.env_prefix}-server"
-  }
-}
+#   user_data = file("entry-script.sh")
+
+#   tags = {
+#     Name = "${var.env_prefix}-server"
+#   }
+# }
